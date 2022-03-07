@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Add Book</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragment/resuable::icon"></div>
+    <div th:replace="fragment/resuable::generic_css"></div>
+    <div th:replace="fragment/resuable::script"></div>
+    <div th:replace="fragment/resuable::navbar"></div>
+    <h1>Add Book</h1>
+    <p class="title" th:align="right" style="margin-right: 600px">
+        <a th:href="@{/book/home}" class="btn btn-large btn-primary">back</a>
+    </p>
+    <div class="col-md-6">
+        <form th:action="@{~/book/addbook}" method="post" th:object="${bookDto}" enctype="multipart/form-data">
+            <input type="hidden" th:field="*{id}">
+            <div class="mb-3">
+                <label class="text-dark">Select Category</label>
+                <select th:field="*{categoryDto}" class="form-select" aria-label="Default select example">
+                    <option th:each="category : ${categoryList}"
+                            th:value="${category.id}"
+                            th:text="${category.name}">
+                    </option>
+                </select>
+                <br>
+            </div>
+            <div class="mb-3">
+                <label class="text-dark">Select Authors</label>
+                <select th:field="*{authorDto}" class="form-select" multiple>
+                    <option th:each="authors : ${authorList}"
+                            th:value="${authors.id}"
+                            th:text="${authors.name}">
+                    </option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Full Name</label>
+                <input type="text" th:field="*{name}" class="form-control" placeholder="Book name">
+                <p class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Number of Total Pages</label>
+                <input type="text" th:field="*{totalPage}" class="form-control" placeholder="Total pages" >
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Isbn</label>
+                <input type="text" th:field="*{isbn}" class="form-control" placeholder="isbn number" >
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Rating</label>
+                <input type="text" th:field="*{rating}" class="form-control" placeholder="" >
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Stock Count</label>
+                <input type="text" th:field="*{stockCount}" class="form-control" placeholder="Total stock" >
+
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Published Date</label>
+                <input type="date" th:field="*{publishDate}" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Photo</label>
+                <input type="file" th:field="*{multipartFile}" class="form-control" required>
+
+                         <div class="col-md-6">
+                                <input type="submit" class="btn btn-primary" value=" Save ">
+                                <input type="reset" class="btn btn-danger" value=" Reset ">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

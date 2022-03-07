@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Return</title>
+</head>
+
+<body>
+<div th:class="container">
+    <div th:replace="fragment/resuable::icon"></div>
+    <div th:replace="fragment/resuable::generic_css"></div>
+    <div th:replace="fragment/resuable::script"></div>
+    <div th:replace="fragment/resuable::navbar"></div>
+    <h1>Return a Book</h1>
+    <p class="title" th:align="right" style="margin-right: 600px">
+        <a th:href="@{/return/home}" class="btn btn-large btn-primary">back</a>
+    </p>
+    <div class="col-md-6">
+        <form th:action="@{~/return/create}" method="post" th:object="${returnDto}" enctype="multipart/form-data">
+            <input type="hidden" th:field="*{id}">
+            <div class="mb-3">
+                <label class="text-dark">Select Code</label>
+                <select th:field="*{code}" class="form-select" aria-label="Default select example">
+                    <option th:each="return : ${returnList}"
+                            th:value="${return.id}"
+                            th:text="${return.code}">
+                    </option>
+                </select>
+                <br>
+            <div class="mb-3">
+                <label class="form-label">Member</label>
+                <input type="text" th:field="*{memberDto}" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Date of Request</label>
+                <input type="date" th:field="*{fromDate}" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Date of Return</label>
+                <input type="date" th:field="*{toDate}" class="form-control">
+            </div>
+                div class="col-md-6">
+                <input type="submit" class="btn btn-primary" value=" Save ">
+                <input type="reset" class="btn btn-danger" value=" Reset ">
+            </div>
+        </form>
+    </div>
+</div>
+
+
+</body>
+</html>

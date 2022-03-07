@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Return || Home</title>
+</head>
+<body>
+<div th:class="container">
+    <div th:replace="fragment/resuable::icon"></div>
+    <div th:replace="fragment/resuable::generic_css"></div>
+    <div th:replace="fragment/resuable::script"></div>
+    <div th:replace="fragment/resuable::navbar"></div>
+    <table class="table table-bordered border-primary">
+        <h2>Return List</h2>
+        <p class="title" th:align="right">
+            <a th:href="@{/return/page}" class="btn btn-large btn-primary">create</a>
+        </p>
+        <thead class="table-dark">
+        <tr>
+            <th scope="col">SN</th>
+            <th scope="col">Member Name</th>
+            <th scope="col">Code</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="return,loop: ${returnList}">
+            <th th:text="${loop.count}"></th>
+            <td th:text="${return.member.name}"></td>
+            <td th:text="${return.code}"></td>
+                        <td>
+                            <a th:href="@{~/return/edit/}+${author.id}">
+                                <botton class="btn btn-info">Edit</botton>
+                            </a>
+                            <a th:href="@{~/return/delete/}+${author.id}">
+                                <botton class="btn btn-danger">Delete</botton>
+                            </a>
+
+                        </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+</body>
+</html>

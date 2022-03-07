@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Category || home</title>
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragment/resuable::icon"></div>
+    <div th:replace="fragment/resuable::generic_css"></div>
+    <div th:replace="fragment/resuable::script"></div>
+    <div th:replace="fragment/resuable::navbar"></div>
+    <table class="table table-bordered border-primary">
+        <h2>Category List</h2>
+        <p class="title" th:align="right">
+            <a th:href="@{/category/page}" class="btn btn-large btn-primary">create</a>
+        </p>
+        <thead class="table-dark">
+        <tr>
+            <th scope="col">SN</th>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="category,loop: ${categoryList}">
+            <th th:text="${loop.count}"></th>
+            <td th:text="${category.name}"></td>
+            <td th:text="${category.description}"></td>
+            <td>
+                <a th:href="@{~/category/edit/}+${category.id}">
+                    <botton class="btn btn-info">Edit</botton>
+                </a>
+                <a th:href="@{~/category/delete/}+${category.id}">
+                    <botton class="btn btn-danger">Delete</botton>
+                </a>
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

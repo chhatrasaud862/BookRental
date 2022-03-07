@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Member || Page</title>
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragment/resuable::icon"></div>
+    <div th:replace="fragment/resuable::generic_css"></div>
+    <div th:replace="fragment/resuable::script"></div>
+    <div th:replace="fragment/resuable::navbar"></div>
+    <div class="container my-5">
+        <h3> Add Member</h3>
+        <p class="title" th:align="right" style="margin-right: 600px">
+            <a th:href="@{/author/home}" class="btn btn-large btn-primary">back</a>
+        </p>
+        <div class="card"style="margin-right: 600px">
+            <div class="card-body">
+                <div class="col-md-10">
+                    <form action="#" th:action="@{/member/create}" th:method="post"th:object="${memberDto}">
+                        <input type="text" th:field="*{id}" hidden>
+                        <div class="row">
+                            <div class="form-group col-md-8">
+                                <label for="name" class="col-form-label">name</label>
+                                <input type="text" th:field="*{name}" class="form-control"
+                                       id="name" placeholder="Enter the name" required />
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-8">
+                                    <label for="email" class="col-form-label">email</label>
+                                    <input type="email" th:field="*{email}" class="form-control"
+                                           id="email" placeholder="Enter the email" required/>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-8">
+                                        <label for="number" class="col-form-label">number</label>
+                                        <input type="number" th:field="*{mobileNumber}" class="form-control"
+                                               id="number" placeholder="Enter the number" required />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="submit" class="btn btn-primary" value=" Save ">
+                                        <input type="reset" class="btn btn-danger" value=" Reset ">
+                                    </div>
+                                </div>
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

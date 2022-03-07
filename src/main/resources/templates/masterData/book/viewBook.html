@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https:www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <title>View Book</title>
+</head>
+<body>
+<h2>Book Detail</h2>
+<div>
+  <ul>
+    <p> Book Name:</p>
+    <li th:text="${bookDto.name}"></li>
+    <p> Book ISBN:</p>
+    <li th:text="${bookDto.isbn}"></li>
+    <p> Book Rating:</p>
+    <li th:text="${bookDto.rating}"></li>
+    <p> Book Stock Count:</p>
+    <li th:text="${bookDto.stockCount}"></li>
+    <p> Book Published Date:</p>
+    <li th:text="${bookDto.publishDate}"></li>
+    <p> Book Path:</p>
+    <li th:text="${bookDto.filepath}"></li>
+  </ul>
+  <img id="viewImage" th:src="${bookDto.filePath}">
+</div>
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Add Category</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragment/resuable::icon"></div>
+    <div th:replace="fragment/resuable::generic_css"></div>
+    <div th:replace="fragment/resuable::script"></div>
+    <div th:replace="fragment/resuable::navbar"></div>
+    <div class="container my-5">
+        <h3> Add Category</h3>
+        <p class="title" th:align="right" style="margin-right: 600px">
+            <a th:href="@{/author/home}" class="btn btn-large btn-primary">back</a>
+        </p>
+        <div class="card"style="margin-right: 600px">
+            <div class="card-body">
+                <div class="col-md-10">
+                    <form action="#" th:action="@{/category/create}" th:object="${categoryDto}"
+                         th:method="post">
+                        <input type="text" th:field="*{id}" hidden>
+                        <div class="row">
+                            <div class="form-group col-md-8">
+                                <label for="name" class="col-form-label">name</label>
+                                <input type="text" th:field="*{name}" class="form-control"
+                                       id="name" placeholder="Enter the name" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleFormControlTextarea1" class="form-label">description</label>
+                                <textarea class="form-control" th:field="*{description}" id="exampleFormControlTextarea1" rows="3"
+                                          placeholder="enter the description"></textarea>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="submit" class="btn btn-primary" value=" Save ">
+                                <input type="reset" class="btn btn-danger" value=" Reset ">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

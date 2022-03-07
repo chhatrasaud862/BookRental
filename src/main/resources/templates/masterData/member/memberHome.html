@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Member || home</title>
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragment/resuable::icon"></div>
+    <div th:replace="fragment/resuable::generic_css"></div>
+    <div th:replace="fragment/resuable::script"></div>
+    <div th:replace="fragment/resuable::navbar"></div>
+    <table class="table table-bordered border-primary">
+        <h2>Member List</h2>
+        <p class="title" th:align="right">
+            <a th:href="@{/member/page}" class="btn btn-large btn-primary">create</a>
+        </p>
+        <thead class="table-dark">
+        <tr>
+            <th scope="col">SN</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Number</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="member,loop: ${memberList}">
+            <th th:text="${loop.count}"></th>
+            <td th:text="${member.name}"></td>
+            <td th:text="${member.email}"></td>
+            <td th:text="${member.mobileNumber}"></td>
+            <td>
+                <a th:href="@{~/member/edit/}+${member.id}">
+                    <botton class="btn btn-info">Edit</botton>
+                </a>
+                <a th:href="@{~/member/delete/}+${member.id}">
+                    <botton class="btn btn-danger">Delete</botton>
+                </a>
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
