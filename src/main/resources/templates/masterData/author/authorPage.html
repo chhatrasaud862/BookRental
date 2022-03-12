@@ -11,7 +11,7 @@
     <div th:replace="fragment/resuable::script"></div>
     <div th:replace="fragment/resuable::navbar"></div>
     <div class="container my-5">
-        <h3> Add Author</h3>
+        <h3> <u><b>Add Author</b></u></h3>
         <p class="title" th:align="right" style="margin-right: 600px">
             <a th:href="@{/author/home}" class="btn btn-large btn-primary">back</a>
         </p>
@@ -19,33 +19,29 @@
             <div class="card-body">
                 <div class="col-md-10">
                     <form action="#" th:action="@{/author/create}" th:method="post"th:object="${authorDto}">
-                        <input type="text" th:field="*{id}" hidden>
                         <div class="row">
+                            <input type="text" th:field="*{id}" hidden>
                             <div class="form-group col-md-8">
-                                <label for="name" class="col-form-label">name</label>
+                                <label for="name" class="col-form-label">Name</label>
                                 <input type="text" th:field="*{name}" class="form-control"
                                        id="name" placeholder="Enter the name" required />
                             </div>
-                        </div>
-                            <div class="row">
                                 <div class="form-group col-md-8">
-                                    <label for="email" class="col-form-label">email</label>
+                                    <label for="email" class="col-form-label">Email</label>
                                     <input type="email" th:field="*{email}" class="form-control"
                                            id="email" placeholder="Enter the email" required/>
-                                </div>
                             </div>
-                                <div class="row">
                                     <div class="form-group col-md-8">
-                                        <label for="number" class="col-form-label">number</label>
+                                        <label for="number" class="col-form-label">Number</label>
                                         <input type="number" th:field="*{mobileNumber}" class="form-control"
                                                id="number" placeholder="Enter the number" required />
                                     </div>
-                                   </div>
-
+                                    <hr>
                                     <div class="col-md-6">
                                         <input type="submit" class="btn btn-primary" value=" Save ">
                                         <input type="reset" class="btn btn-danger" value=" Reset ">
                                     </div>
+                        </div>
                     </form>
                 </div>
             </div>

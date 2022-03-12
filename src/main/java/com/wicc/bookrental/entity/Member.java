@@ -30,7 +30,5 @@ public class Member {
     private String mobileNumber;
     @Column(name="address",nullable = false)
     private String address;
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "member")
-    private List<BookTransaction> bookTransactionList;
 
 }

@@ -5,37 +5,47 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
 
-@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name="tbl_book_transaction",uniqueConstraints = {
-        @UniqueConstraint(name="unique_book_transaction_code",columnNames = "code")
-})
-public class BookTransaction implements Serializable {
+@Entity
+@Table(name = "tbl_book_transaction", uniqueConstraints = @UniqueConstraint(
+                name="unique_code",
+                columnNames = "book_code"
+        )
+)
+public class BookTransaction {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY,generator = "BookTransaction_SEQ_GEN")
-    @SequenceGenerator(name="BookTransaction_SEQ_GEN",sequenceName = "BookTransaction_SEQ",allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "transaction_is_gen")
+    @SequenceGenerator(name = "transaction_is_gen", sequenceName = "transaction_is_gen", allocationSize = 1)
     private Integer id;
-    @Column(name="code",length = 50)
-    private String code;
-    @Column(name="from_date",length = 100)
+
+    @Column(name = "book_code", nullable = false)
+    private String bookCode;
+
+    @Column(name = "from_date")
+    @Temporal(TemporalType.DATE)
     private Date fromDate;
-    @Column(name="to_date",length = 100)
-    private Date toDate;
-    @Enumerated(value=EnumType.STRING)
+    @Column(name = "to_date")
+    @Temporal(TemporalType.DATE)
+    private Date returnDate;
+
+    @Column( nullable = false)
+    private Integer noOfDays;
+
+    @Column(name = "rent_status", nullable = false)
     private RentStatus rentStatus;
-    @ManyToOne(fetch = FetchType.LAZY,targetEntity = Book.class)
-    @JoinColumn(name="book_id",foreignKey = @ForeignKey(name="FK_BOOKTRANSACTION_BOOKID"))
+
+    @ManyToOne
+    @JoinColumn(name = "book_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_transaction_book"))
     private Book book;
-    @ManyToOne(fetch = FetchType.LAZY,targetEntity = Member.class)
-    @JoinColumn(name="member_id",foreignKey = @ForeignKey(name="FK_BOOKTRANSACTION_MEMBERID"))
+
+    @ManyToOne
+    @JoinColumn(name = "member_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_transaction_member"))
     private Member member;
 }

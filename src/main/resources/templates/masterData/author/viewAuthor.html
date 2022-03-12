@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View || Author</title>
+    <style>
+        .tab
+        {
+            margin-right:600px;
+            margin-top: 100px;
+        }
+    </style>
+</head>
+<body>
+<div class="container" style="margin-left: 400px">
+    <div th:replace="fragment/resuable::icon"></div>
+    <div th:replace="fragment/resuable::generic_css"></div>
+    <div th:replace="fragment/resuable::script"></div>
+    <div th:replace="fragment/resuable::navbar"></div>
+    <div class="tab">
+    <gh2>Author Detail</gh2>
+    <table class="table table-striped">
+        <thead>
+         <tr>
+             <th scope="col">field Name</th>
+             <th scope="col">field Data</th>
+         </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Author Name</td>
+            <td th:text="${authorDto.name}"></td>
+        </tr>
+        <tr>
+            <td>Author Email</td>
+            <td th:text="${authorDto.email}"></td>
+        </tr>
+        <tr>
+            <td>Author Mobile Number</td>
+            <td th:text="${authorDto.mobileNumber}"></td>
+        </tr>
+        </tbody>
+
+    </table>
+    </div>
+</div>
+</body>
+</html>

@@ -1,11 +1,163 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Add Book</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Book || Page</title>
+    <meta charset="UTF-8">
+<!--    <link th:href="@{/styles/css/bookPage.css}" rel="stylesheet" />-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins',sans-serif;
+        }
+        body{
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            background: linear-gradient(135deg, #71b7e6, #9b59b6);
+        }
+        .container{
+            max-width: 700px;
+            width: 100%;
+            background-color: #fff;
+            padding: 25px 30px;
+            border-radius: 5px;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+        }
+        .container .title{
+            font-size: 25px;
+            font-weight: 500;
+            position: relative;
+        }
+        .container .title::before{
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 3px;
+            width: 30px;
+            border-radius: 5px;
+            background: linear-gradient(135deg, #71b7e6, #9b59b6);
+        }
+        .content form .user-details{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: 20px 0 12px 0;
+        }
+        form .user-details .input-box{
+            margin-bottom: 15px;
+            width: calc(100% / 2 - 20px);
+        }
+        form .input-box span.details{
+            display: block;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        .user-details .input-box input{
+            height: 45px;
+            width: 100%;
+            outline: none;
+            font-size: 16px;
+            border-radius: 5px;
+            padding-left: 15px;
+            border: 1px solid #ccc;
+            border-bottom-width: 2px;
+            transition: all 0.3s ease;
+        }
+        .user-details .input-box input:focus,
+        .user-details .input-box input:valid{
+            border-color: #9b59b6;
+        }
+        form .gender-details .gender-title{
+            font-size: 20px;
+            font-weight: 500;
+        }
+        form .category{
+            display: flex;
+            width: 80%;
+            margin: 14px 0 ;
+            justify-content: space-between;
+        }
+        form .category label{
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        form .category label .dot{
+            height: 18px;
+            width: 18px;
+            border-radius: 50%;
+            margin-right: 10px;
+            background: #d9d9d9;
+            border: 5px solid transparent;
+            transition: all 0.3s ease;
+        }
+        #dot-1:checked ~ .category label .one,
+        #dot-2:checked ~ .category label .two,
+        #dot-3:checked ~ .category label .three{
+            background: #9b59b6;
+            border-color: #d9d9d9;
+        }
+        form input[type="radio"]{
+            display: none;
+        }
+        form .button{
+            height: 45px;
+            margin: 35px 0
+        }
+        form .button input{
+            height: 100%;
+            width: 100%;
+            border-radius: 5px;
+            border: none;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #71b7e6, #9b59b6);
+        }
+        form .button input:hover{
+            /* transform: scale(0.99); */
+            background: linear-gradient(-135deg, #71b7e6, #9b59b6);
+        }
+        @media(max-width: 584px){
+            .container{
+                max-width: 100%;
+            }
+            form .user-details .input-box{
+                margin-bottom: 15px;
+                width: 100%;
+            }
+            form .category{
+                width: 100%;
+            }
+            .content form .user-details{
+                max-height: 300px;
+                overflow-y: scroll;
+            }
+            .user-details::-webkit-scrollbar{
+                width: 5px;
+            }
+        }
+        @media(max-width: 459px){
+            .container .content .category{
+                flex-direction: column;
+            }
+        }
+        .tab{
+            margin-left: 200px;
+            margin-right: 250px;
+            margin-top: 150px;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
@@ -13,72 +165,70 @@
     <div th:replace="fragment/resuable::generic_css"></div>
     <div th:replace="fragment/resuable::script"></div>
     <div th:replace="fragment/resuable::navbar"></div>
-    <h1>Add Book</h1>
+    <div class="tab">
+    <div class="title">Add Book</div>
     <p class="title" th:align="right" style="margin-right: 600px">
         <a th:href="@{/book/home}" class="btn btn-large btn-primary">back</a>
     </p>
-    <div class="col-md-6">
-        <form th:action="@{~/book/addbook}" method="post" th:object="${bookDto}" enctype="multipart/form-data">
+    <div class="content">
+        <form th:action="@{~/book/create}" method="post" th:object="${bookDto}" enctype="multipart/form-data">
             <input type="hidden" th:field="*{id}">
-            <div class="mb-3">
-                <label class="text-dark">Select Category</label>
-                <select th:field="*{categoryDto}" class="form-select" aria-label="Default select example">
-                    <option th:each="category : ${categoryList}"
-                            th:value="${category.id}"
-                            th:text="${category.name}">
-                    </option>
-                </select>
-                <br>
-            </div>
-            <div class="mb-3">
-                <label class="text-dark">Select Authors</label>
-                <select th:field="*{authorDto}" class="form-select" multiple>
-                    <option th:each="authors : ${authorList}"
-                            th:value="${authors.id}"
-                            th:text="${authors.name}">
-                    </option>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Full Name</label>
-                <input type="text" th:field="*{name}" class="form-control" placeholder="Book name">
-                <p class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Number of Total Pages</label>
-                <input type="text" th:field="*{totalPage}" class="form-control" placeholder="Total pages" >
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Isbn</label>
-                <input type="text" th:field="*{isbn}" class="form-control" placeholder="isbn number" >
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Rating</label>
-                <input type="text" th:field="*{rating}" class="form-control" placeholder="" >
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Stock Count</label>
-                <input type="text" th:field="*{stockCount}" class="form-control" placeholder="Total stock" >
-
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Published Date</label>
-                <input type="date" th:field="*{publishDate}" class="form-control">
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Photo</label>
-                <input type="file" th:field="*{multipartFile}" class="form-control" required>
-
-                         <div class="col-md-6">
-                                <input type="submit" class="btn btn-primary" value=" Save ">
-                                <input type="reset" class="btn btn-danger" value=" Reset ">
-                            </div>
-                        </div>
-                    </form>
+            <div class="user-details">
+                <div class="input-box">
+                    <label class="text-dark">Select Category</label>
+                    <select th:field="*{category}" class="form-select" aria-label="Default select example">
+                        <option th:each="category : ${categoryList}"
+                                th:value="${category.id}"
+                                th:text="${category.name}">
+                        </option>
+                    </select>
+                    </div>
+                <div class="input-box">
+                    <label class="text-dark">Select Authors</label>
+                    <select th:field="*{authorList}" class="form-select" multiple>
+                        <option th:each="authors : ${authorList}"
+                                th:value="${authors.id}"
+                                th:text="${authors.name}">
+                        </option>
+                    </select>
+                </div>
+                <div class="input-box">
+                    <span class="details">Book Name</span>
+                    <input type="text" placeholder="Enter Book name" th:field="*{name}" required>
+                </div>
+                <div class="input-box">
+                    <span class="details">Number of page</span>
+                    <input type="text" placeholder="Enter the page number"th:field="*{numberOfPage}"required>
+                </div>
+                <div class="input-box">
+                    <span class="details">Isbn</span>
+                    <input type="text" placeholder="Enter the isbn" th:field="*{isbn}" required>
+                </div>
+                <div class="input-box">
+                    <span class="details">Rating</span>
+                    <input type="text" placeholder="Enter rating" th:field="*{rating}"required>
+                </div>
+                <div class="input-box">
+                    <span class="details">Stock count</span>
+                    <input type="text" placeholder="Enter stock count" th:field="*{stockCount}" required>
+                </div>
+                <div class="input-box">
+                    <span class="details">published date</span>
+                    <input type="text" placeholder="published date dd-mm-yyyy" th:field="*{published_date}"required>
+                </div>
+                <div class="input-box">
+                    <span class="details">Photo</span>
+                    <input type="file" placeholder="Enter rating" th:field="*{multipartFile}"required>
                 </div>
             </div>
-        </div>
+               <hr>
+            <div class="col-md-6">
+                <input type="submit" class="btn btn-primary" value=" Save ">
+                <input type="reset" class="btn btn-danger" value=" Reset ">
+            </div>
+        </form>
     </div>
+</div>
 </div>
 </body>
 </html>

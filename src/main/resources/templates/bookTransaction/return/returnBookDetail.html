@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Return || Book</title>
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragment/resuable::icon"></div>
+    <div th:replace="fragment/resuable::generic_css"></div>
+    <div th:replace="fragment/resuable::script"></div>
+    <div th:replace="fragment/resuable::navbar"></div>
+    <div class="container my-5">
+        <h3> <u><b>Return Book</b></u></h3>
+        <p class="title" th:align="right" style="margin-right: 600px">
+            <a th:href="@{/return/home}" class="btn btn-large btn-primary">back</a>
+        </p>
+        <div class="card"style="margin-right: 600px">
+            <div class="card-body">
+                <div class="col-md-10">
+                    <form th:action="@{~/return/add}" th:method="post"th:object="${transactionDetails}">
+                        <input type="hidden" th:field="*{id}" >
+                        <div class="row">
+                            <div class="mb-3">
+                                <label for="exampleFormControlTextarea1" class="form-label">Book Code</label>
+                                <textarea class="form-control" th:field="*{bookCode}" id="exampleFormControlTextarea1" rows="3" disabled></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleFormControlTextarea2" class="form-label">Book Name</label>
+                                <input type="text" th:value="*{book.getName()}" id="exampleFormControlTextarea2" rows="3" disabled></input>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleFormControlTextarea3" class="form-label">Member Name</label>
+                                <input type="text" th:value="*{member.getName()}" id="exampleFormControlTextarea3" rows="3" disabled></input>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleFormControlTextarea4" class="form-label">Book Code</label>
+                                <input type="text" th:field="*{bookCode}" id="exampleFormControlTextarea4" rows="3" disabled></input>
+                            </div>
+                            <div class="mb-3">
+                            <label for="exampleFormControlTextarea4" class="form-label">Date of Request </label>
+                            <input type="text" th:value="*{fromDate}" id="exampleFormControlTextarea5" rows="3"disabled>
+                              </div>
+                                <div class="mb-3">
+                            <label for="exampleFormControlTextarea4" class="form-label">Rent Status </label>
+                            <input type="text" th:value="*{rentStatus.RENT}" id="exampleFormControlTextarea6" rows="3" disabled>
+                              </div>
+                              <div>
+                            <botton> <input type="submit" class="btn btn-primary" value=" Return "> </botton>
+                              </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

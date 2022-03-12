@@ -3,6 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Return || Home</title>
+    <style>
+        .tap
+        {
+            margin-left: 100px;
+            margin-right: 250px;
+            margin-top: 50px;
+        }
+    </style>
 </head>
 <body>
 <div th:class="container">
@@ -10,37 +18,38 @@
     <div th:replace="fragment/resuable::generic_css"></div>
     <div th:replace="fragment/resuable::script"></div>
     <div th:replace="fragment/resuable::navbar"></div>
-    <table class="table table-bordered border-primary">
-        <h2>Return List</h2>
-        <p class="title" th:align="right">
-            <a th:href="@{/return/page}" class="btn btn-large btn-primary">create</a>
-        </p>
-        <thead class="table-dark">
-        <tr>
-            <th scope="col">SN</th>
-            <th scope="col">Member Name</th>
-            <th scope="col">Code</th>
-            <th scope="col">Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="return,loop: ${returnList}">
-            <th th:text="${loop.count}"></th>
-            <td th:text="${return.member.name}"></td>
-            <td th:text="${return.code}"></td>
-                        <td>
-                            <a th:href="@{~/return/edit/}+${author.id}">
-                                <botton class="btn btn-info">Edit</botton>
-                            </a>
-                            <a th:href="@{~/return/delete/}+${author.id}">
-                                <botton class="btn btn-danger">Delete</botton>
-                            </a>
-
-                        </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
+    <div class="tap">
+        <table class="table table-bordered border-primary">
+            <h2>Return List</h2>
+            <p class="title" th:align="right">
+                <a th:href="@{/return/page}" class="btn btn-large btn-primary">Return</a>
+            </p>
+            <thead class="table-dark" style="font-family:'Times New Roman'">
+            <tr>
+                <th scope="col">S.N</th>
+                <th scope="col">Name</th>
+                <th scope="col">Code</th>
+                <th scope="col">Rented Date</th>
+                <th scope="col">Return Date</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="return,loop:  ${transactionList}">
+                <td  th:text="${loop.count}"></td>
+                <td th:text="${return.member.getName()}"></td>
+                <td th:text="${return.bookCode}"></td>
+                <td th:text="${return.fromDate}"></td>
+                <td th:text="${return.returnDate}"></td>
+                <td>
+                <a th:href="@{~/return/view/}+${rent.id}">
+                    <botton class="btn btn-primary">View</botton>
+                </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 </body>
 </html>

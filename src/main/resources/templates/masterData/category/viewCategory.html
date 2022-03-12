@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <title>View Category</title>
+  <style>
+    .tab{
+      margin-top: 100px;
+      margin-right: 600px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div th:replace="fragment/resuable::icon"></div>
+  <div th:replace="fragment/resuable::generic_css"></div>
+  <div th:replace="fragment/resuable::script"></div>
+  <div th:replace="fragment/resuable::navbar"></div>
+  <div class="tab">
+    <gh2>Category Detail</gh2>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th scope="col">field Name</th>
+        <th scope="col">field Data</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>Category Name</td>
+        <td th:text="${categoryDto.name}"></td>
+      </tr>
+      <tr>
+        <td>Category Description</td>
+        <td th:text="${categoryDto.description}"></td>
+      </tr>
+      </tbody>
+
+    </table>
+  </div>
+</div>
+</body>
+</html>

@@ -2,15 +2,24 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Book || home</title>
+    <title>BOOK || HOME</title>
+    <style>
+        .tab
+        {
+            margin-left: 100px;
+            margin-right: 250px;
+            margin-top: 50px;
+        }
+    </style>
 </head>
 <body>
-<div class="container">
+<div th:class="container">
     <div th:replace="fragment/resuable::icon"></div>
     <div th:replace="fragment/resuable::generic_css"></div>
     <div th:replace="fragment/resuable::script"></div>
     <div th:replace="fragment/resuable::navbar"></div>
-    <table class="table table-bordered border-primary">
+    <div class="tab">
+    <table class="table table-hover">
         <h2>Book List</h2>
         <p class="title" th:align="right">
             <a th:href="@{/book/page}" class="btn btn-large btn-primary">create</a>
@@ -20,26 +29,34 @@
             <th scope="col">SN</th>
             <th scope="col">Name</th>
             <th scope="col">isbn</th>
+            <th scope="col">Stock Count</th>
+            <th scope="col">Publish Date</th>
             <th scope="col">Action</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="book,loop: ${bookList}">
+        <tr th:each="book,loop :${bookList}">
             <th th:text="${loop.count}"></th>
             <td th:text="${book.name}"></td>
             <td th:text="${book.isbn}"></td>
+            <td th:text="${book.stockCount}"</td>
+            <td th:text="${book.published_date}"></td>
             <td>
+                <a th:href="@{~/book/edit/}+${book.id}">
+                    <botton class="btn btn-info">Update</botton>
+                </a>
                 <a th:href="@{~/book/delete/}+${book.id}">
                     <botton class="btn btn-danger">Delete</botton>
                 </a>
                 <a th:href="@{~/book/view/}+${book.id}">
-                    <botton class="btn btn-info">View</botton>
+                    <botton class="btn btn-primary">View</botton>
                 </a>
 
             </td>
         </tr>
         </tbody>
     </table>
+</div>
 </div>
 </body>
 </html>

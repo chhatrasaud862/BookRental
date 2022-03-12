@@ -5,7 +5,7 @@ import com.wicc.bookrental.entity.Author;
 import com.wicc.bookrental.repo.AuthorRepo;
 import com.wicc.bookrental.service.author.AuthorService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,8 +16,12 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 public class AuthorServiceImpl implements AuthorService {
-    @Autowired
-    private AuthorRepo authorRepo;
+    private final AuthorRepo authorRepo;
+
+    public AuthorServiceImpl(AuthorRepo authorRepo) {
+        this.authorRepo = authorRepo;
+    }
+
     @Override
     public AuthorDto saveAuthor(AuthorDto authorDto) {
         Author entity= new Author();
@@ -35,8 +39,7 @@ public class AuthorServiceImpl implements AuthorService {
     }
     @Override
     public List<AuthorDto> findAll() {
-        List<Author> authorList=authorRepo.findAll();
-        return  authorList.stream().map(
+             return authorRepo.findAll(Sort.by(Sort.Direction.ASC,"id")).stream().map(
                 author -> AuthorDto.builder()
                         .id(author.getId())
                         .name(author.getName())

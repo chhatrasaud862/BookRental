@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Return || Book</title>
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragment/resuable::icon"></div>
+    <div th:replace="fragment/resuable::generic_css"></div>
+    <div th:replace="fragment/resuable::script"></div>
+    <div th:replace="fragment/resuable::navbar"></div>
+    <div class="container my-5">
+        <h3> <u><b>Return Book</b></u></h3>
+        <p class="title" th:align="right" style="margin-right: 600px">
+            <a th:href="@{/return/home}" class="btn btn-large btn-primary">back</a>
+        </p>
+        <div class="card"style="margin-right: 600px">
+            <div class="card-body">
+                <div class="col-md-10">
+                    <form th:action="@{~/return/create}" th:method="post"th:object="${transactionDtoList}">
+
+                                <label for="code_list">Select book code: </label>
+                                <select th:field="*{bookCode}" id="code_list" class="code">
+                                    <option value="default">Select a bookCode</option>
+                                    <th:block th:each="code :${rentedCode}">
+                                        <option th:value="${code.getBookCode}" th:text="${code.getBookCode}"></option>
+                                    </th:block>
+                                </select>
+                                    <br>
+                                <input type="submit" class="btn btn-primary" value="Submit">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    window.onmousedown = function (e) {
+        var el = e.target;
+        if (el.tagName.toLowerCase() == 'option' && el.parentNode.hasAttribute('multiple')) {
+            e.preventDefault();
+
+            // toggle selection
+            if (el.hasAttribute('selected')) el.removeAttribute('selected');
+            else el.setAttribute('selected', '');
+
+            // hack to correct buggy behavior
+            var select = el.parentNode.cloneNode(true);
+            el.parentNode.parentNode.replaceChild(select, el.parentNode);
+        }
+    }
+</script>
+</body>
+</html>

@@ -3,6 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Member || home</title>
+    <style>
+        .tab
+        {
+            margin-left: 100px;
+            margin-right: 250px;
+            margin-top: 50px;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
@@ -10,6 +18,7 @@
     <div th:replace="fragment/resuable::generic_css"></div>
     <div th:replace="fragment/resuable::script"></div>
     <div th:replace="fragment/resuable::navbar"></div>
+    <div class="tab">
     <table class="table table-bordered border-primary">
         <h2>Member List</h2>
         <p class="title" th:align="right">
@@ -32,16 +41,19 @@
             <td th:text="${member.mobileNumber}"></td>
             <td>
                 <a th:href="@{~/member/edit/}+${member.id}">
-                    <botton class="btn btn-info">Edit</botton>
+                    <botton class="btn btn-info">Update</botton>
                 </a>
                 <a th:href="@{~/member/delete/}+${member.id}">
                     <botton class="btn btn-danger">Delete</botton>
                 </a>
-
+                <a th:href="@{~/member/view/}+${member.id}">
+                    <botton class="btn btn-primary">View</botton>
+                </a>
             </td>
         </tr>
         </tbody>
     </table>
+    </div>
 </div>
 </body>
 </html>

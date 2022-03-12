@@ -5,7 +5,7 @@ import com.wicc.bookrental.entity.Category;
 import com.wicc.bookrental.repo.CategoryRepo;
 import com.wicc.bookrental.service.category.CategoryService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,8 +15,12 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 public class CategoryServiceImpl implements CategoryService {
-    @Autowired
-    private CategoryRepo categoryRepo;
+    private final CategoryRepo categoryRepo;
+
+    public CategoryServiceImpl(CategoryRepo categoryRepo) {
+        this.categoryRepo = categoryRepo;
+    }
+
     @Override
     public CategoryDto saveCategory(CategoryDto categoryDto) {
         Category entity=new Category();
@@ -34,8 +38,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
     @Override
     public List<CategoryDto> findAll() {
-        List<Category> categoryList=categoryRepo.findAll();
-        return categoryList.stream().map(
+        return  categoryRepo.findAll(Sort.by(Sort.Direction.ASC ,"id")).stream().map(
                 category-> CategoryDto.builder()
                         .id(category.getId())
                         .name(category.getName())

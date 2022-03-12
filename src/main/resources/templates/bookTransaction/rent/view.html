@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View || Rent</title>
+    <style>
+        .tab
+        {
+            margin-right:600px;
+            margin-top: 100px;
+        }
+    </style>
+</head>
+<body>
+<div class="container" style="margin-left: 400px">
+    <div th:replace="fragment/resuable::icon"></div>
+    <div th:replace="fragment/resuable::generic_css"></div>
+    <div th:replace="fragment/resuable::script"></div>
+    <div th:replace="fragment/resuable::navbar"></div>
+    <div class="tab">
+        <gh2>Rent Detail</gh2>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">field Name</th>
+                <th scope="col">field Data</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Member Name</td>
+                <td th:text="${memberDetails.getName()}"></td>
+                </tr>
+            <tr>
+                <td>Member Email</td>
+                <td th:text="${memberDetails.getEmail()}"></td>
+               </tr>
+            <tr>
+                <td>Member Number</td>
+                <td th:text="${memberDetails.getMobileNumber()}"></td>
+            </tr>
+            <tr>
+                <td>Book Name</td>
+                        <td th:text="${bookDetails.getName()}"></td>
+            </tr>
+            <tr>
+            <td>Published Date</td>
+                        <td th:text="${bookDetails.published_date}"></td>
+                   </tr>
+            <tr>
+                <td>Rent Date</td>
+                <td th:text="${transactionList.fromDate}"></td>
+                </tr>
+            <tr>
+            <td>Number of Days</td>
+                <td th:text="${transactionList.noOfDay}"></td>
+            </tr>
+            <tr>
+              <td>Return Date</td>
+            <td th:text="${transactionList.toDate}"></td>
+            </tr>
+            </tbody>
+
+        </table>
+    </div>
+</div>
+</body>
+</html>

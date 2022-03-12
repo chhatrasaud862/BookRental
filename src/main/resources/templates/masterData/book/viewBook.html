@@ -1,30 +1,57 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https:www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <title>View Book</title>
+  <style>
+    .main{
+      margin-left: 150px;
+      margin-right: 200px;
+      margin-top: 50px;
+    }
+  </style>
 </head>
 <body>
-<h2>Book Detail</h2>
-<div>
-  <ul>
-    <p> Book Name:</p>
-    <li th:text="${bookDto.name}"></li>
-    <p> Book ISBN:</p>
-    <li th:text="${bookDto.isbn}"></li>
-    <p> Book Rating:</p>
-    <li th:text="${bookDto.rating}"></li>
-    <p> Book Stock Count:</p>
-    <li th:text="${bookDto.stockCount}"></li>
-    <p> Book Published Date:</p>
-    <li th:text="${bookDto.publishDate}"></li>
-    <p> Book Path:</p>
-    <li th:text="${bookDto.filepath}"></li>
-  </ul>
-  <img id="viewImage" th:src="${bookDto.filePath}">
-</div>
+<div class="container">
+  <div th:replace="fragment/resuable::icon"></div>
+  <div th:replace="fragment/resuable::generic_css"></div>
+  <div th:replace="fragment/resuable::script"></div>
+  <div th:replace="fragment/resuable::navbar"></div>
+  <div class="main">
+    <h2 class="head_caption"><u><i>Book Details</i></u></h2>
+    <p class="title" th:align="right">
+      <a th:href="@{/book/home}" class="btn btn-large btn-primary">back</a>
+    </p>
+    <ul type="none">
+      <div class="bookDetails">
+        <th:block>
+          <li th:text="'Book Name        :'+${bookDetail.name}"></li>
+          <li th:text="'Book Isbn        :'+${bookDetail.isbn}"></li>
+          <li th:text="'Published Date   :'+${bookDetail.published_date}"></li>
+          <li th:text="'Number of Pages  :'+${bookDetail.numberOfPage}"></li>
+          <li th:text="'Total Available  :'+${bookDetail.stockCount}"></li>
+        </th:block>
+      </div>
+      <div class="categoryDetails">
+        <th:block>
+          <li th:text="'Category Name     :'+${categoryData.name}"></li>
+          <li th:text="'Category Description: '+${categoryData.description}"></li>
+        </th:block>
+      </div>
+      <div class="authorDetails">
+        <th:block th:each="author: ${authorData}"class="authorList" type="none">
+          <li th:text="'Author Name         :'+${author.name}"class="authorName"></li>
+        </th:block>
+      </div>
+      <div class="image">
 
+        <h3>Cover Photo</h3>
+        <img th:src="${coverPhotoPath}" height="500px" width="500px">
+      </div>
+    </ul>
+  </div>
+</div>
 </body>
 </html>

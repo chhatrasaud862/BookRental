@@ -5,7 +5,7 @@ import com.wicc.bookrental.entity.Member;
 import com.wicc.bookrental.repo.MemberRepo;
 import com.wicc.bookrental.service.member.MemberService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,8 +15,12 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 public class MemberServiceImpl implements MemberService {
-    @Autowired
-    private MemberRepo memberRepo;
+    private final MemberRepo memberRepo;
+
+    public MemberServiceImpl(MemberRepo memberRepo) {
+        this.memberRepo = memberRepo;
+    }
+
     @Override
     public MemberDto saveMember(MemberDto memberDto) {
         Member entity=new Member();
@@ -37,8 +41,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public List<MemberDto> findAll() {
-        List<Member> memberList=memberRepo.findAll();
-        return  memberList.stream().map(
+         return memberRepo.findAll(Sort.by(Sort.Direction.ASC,"id")).stream().map(
               member -> MemberDto.builder()
                         .id(member.getId())
                         .name(member.getName())
@@ -47,7 +50,6 @@ public class MemberServiceImpl implements MemberService {
                         .build()
         ).collect(Collectors.toList());
     }
-
     @Override
     public MemberDto findById(Integer id) {
         Member member;
@@ -58,7 +60,9 @@ public class MemberServiceImpl implements MemberService {
             return MemberDto.builder()
                     .id(member.getId())
                     .name(member.getName())
+                    .email(member.getEmail())
                     .mobileNumber(member.getMobileNumber())
+                    .address(member.getAddress())
                     .build();
         }
         return null;

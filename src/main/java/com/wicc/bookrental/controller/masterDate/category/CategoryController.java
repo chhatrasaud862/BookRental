@@ -1,8 +1,8 @@
 package com.wicc.bookrental.controller.masterDate.category;
 
 import com.wicc.bookrental.dto.CategoryDto;
-import com.wicc.bookrental.service.category.CategoryService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.wicc.bookrental.service.impl.CategoryServiceImpl;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,9 +11,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequestMapping("/category")
 public class CategoryController {
-    @Autowired
-    private CategoryService categoryService;
-@GetMapping("/home")
+    private final CategoryServiceImpl categoryService;
+
+    public CategoryController(CategoryServiceImpl categoryService) {
+        this.categoryService = categoryService;
+    }
+
+    @GetMapping("/home")
 public String openCategoryHome(Model model)
 {
     model.addAttribute("categoryDto",new CategoryDto());
@@ -41,10 +45,10 @@ public String createCategory(@ModelAttribute CategoryDto categoryDto,
     return "redirect:/category/home";
 }
 @GetMapping("/edit/{id}")
-        public String editCategory(@PathVariable("id") Integer categoryId,
+        public String editCategory(@PathVariable("id") Integer id,
                                    RedirectAttributes redirectAttributes)
 {
-    CategoryDto categoryDto=categoryService.findById(categoryId);
+    CategoryDto categoryDto=categoryService.findById(id);
     if(categoryDto!=null)
        redirectAttributes.addFlashAttribute("categoryDto",categoryDto);
      return "redirect:/category/page";
@@ -55,5 +59,11 @@ public String createCategory(@ModelAttribute CategoryDto categoryDto,
 {
     categoryService.deleteCategoryId(categoryId);
     return "redirect:/category/home";
+}
+@GetMapping("/view/{id}")
+    public String viewCategory(@PathVariable("id") Integer id,Model model)
+{
+    model.addAttribute("categoryDto",categoryService.findById(id));
+    return "masterData/category/viewCategory";
 }
 }
